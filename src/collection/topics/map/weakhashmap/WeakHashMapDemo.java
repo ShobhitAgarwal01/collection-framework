@@ -1,17 +1,24 @@
 package collection.topics.map.weakhashmap;
 
+import java.util.Map;
 import java.util.WeakHashMap;
 
 public class WeakHashMapDemo {
     public static void main(String[] args) {
         WeakHashMap<String, Image> imageCache = new WeakHashMap<>();
-        imageCache.put("img1", new Image("Image1"));
-        imageCache.put("img2", new Image("Image2"));
+        loadCache(imageCache);
 
         System.out.println(imageCache);
         System.gc();
         simulateApplicationRunning();
         System.out.println("Cache After Running (Some Entries Maybe Cleared)" + imageCache);
+    }
+
+    public static void loadCache(Map<String, Image> imageCache) {
+        String k1 = new String("img1");
+        String k2 = new String("img2");
+        imageCache.put(k1, new Image("Image1"));
+        imageCache.put(k2, new Image("Image2"));
     }
 
     private static void simulateApplicationRunning() {
@@ -32,8 +39,6 @@ class Image {
 
     @Override
     public String toString() {
-        return "Image{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }
